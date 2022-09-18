@@ -21,8 +21,8 @@
                         @if (old('is_status',$data->is_status)) checked @endif />
                 </h3>
             </div>
-            <input type="submit" value="บันทึก" class="btn btn-primary">
-            <a href="/todolist" class="btn btn-success "> ยกเลิก </a>
+            <input type="submit" value="บันทึก" class="btn btn-success">
+            <a href="/todolist" class="btn btn-danger"> ยกเลิก </a>
         </div>
     {!! Form::close() !!}
 

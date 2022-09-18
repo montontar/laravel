@@ -11,15 +11,14 @@
                 @endforeach
             </ul>
         @endif
+
     {!! Form::open(['action' => 'TodoListController@store','method' =>'POST']) !!}
-        <div class="col-12">
-            <div class="form-group">
-                    <input type="text" name="detail"  class="form-control col-md-6">
-                    <input type="submit" value="ADD" class="btn btn-primary col-md-2">
-                    <!-- {!! Form::text('detail',null,["class"=>"form-control col-md-6"])!!} -->
-                
-            </div>
-        </div>
+            <form class="form-inline">
+                <div class="form-group ">
+                    <input type="text" name="detail"  class="form-control col-6"  placeholder="กรอกรายละเอียด">
+                </div>
+                <input type="submit" value="เพิ่ม" class="btn btn-primary col-2 mb-4">
+            </form>
     {!! Form::close() !!}
 
         <div>
@@ -28,11 +27,10 @@
             <table class="table table-hover">
                 <thead>
                     <tr align="center">
-                        <th scope="col"></th>
+                        <th scope="col">ลำดับ</th>
                         <th scope="col">รายละเอียด</th>
                         <th scope="col">สถานะ</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
+                        <th scope="col" colspan="2" align="center">จัดการ</th>
                     </tr>
                 </thead>
 
@@ -46,7 +44,6 @@
                             @if ($row->is_status == "on")
                                 <p class="alert alert-success" align="center"> สำเร็จแล้ว </p>
                             @endif
-                            <!-- <input type="checkbox" disable="true" style="width: 1.2rem; height: 1.2rem;" name="is_status" class="switch-input" value="{{$row->is_status}}" {{ $row->is_status == 1 ? 'checked' : null }}/> -->
                         </td>
                         <td align="right">
                             <a href="{{route('todolist.edit',$row->id)}}" class="btn btn-warning"> แก้ไข </a>

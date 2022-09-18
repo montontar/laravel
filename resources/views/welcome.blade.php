@@ -9,6 +9,7 @@
             <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="{{ asset('js/bonus.js') }}"></script>
         
@@ -76,7 +77,7 @@
     </head>
     
     <body>
-        <div class="flex-center position-ref full-height">
+        <div id="app" class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -105,14 +106,14 @@
                 </div>
             @endif
 
-            <div class="content">
+            <div id="todo" class="content">
                 <div class="title m-b-md">
                     Hi Pages :)
                 </div>
 
-                <div class="links">
-                    <a href="contact">Data Table</a>
-                    <a href="todolist">To Do List</a>
+                <div  class="links">
+                    <a href="contact" class="btn btn-outline-secondary">Data Table</a>
+                    <a href="todolist" class="btn btn-outline-info">To Do List</a>
 
                     <!-- <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
@@ -125,5 +126,17 @@
                 </div>
             </div>
         </div>
+        <!-- <script>
+        $(function(){
+            $('#app').delegate('a','click',function(e){
+                e.preventDefault();
+                var link = this.href;
+
+                $.get(link,function(res){
+                    $('#todo').html(res);
+                });
+            });
+        });
+    </script> -->
     </body>
 </html>
