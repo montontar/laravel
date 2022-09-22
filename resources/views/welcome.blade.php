@@ -1,3 +1,5 @@
+@extends('layouts.app')
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -106,37 +108,18 @@
                 </div>
             @endif
 
-            <div id="todo" class="content">
-                <div class="title m-b-md">
-                    Hi Pages :)
-                </div>
+                <div id="todo" class="content">
+                    <div class="title m-b-md">
+                        Hi Laravel Templates :)
+                    </div>
 
-                <div  class="links">
-                    <a href="contact" class="btn btn-outline-secondary">Data Table</a>
-                    <a href="todolist" class="btn btn-outline-info">To Do List</a>
+                    <div  class="links">
+                        <!-- <a href="{{url('/contact')}}" class="btn btn-outline-secondary">Data Table</a> -->
+                        <a href="{{url('home')}}" class="btn btn-outline-info">Home Pages</a>
 
-                    <!-- <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a> -->
+                    </div>
                 </div>
-            </div>
         </div>
-        <!-- <script>
-        $(function(){
-            $('#app').delegate('a','click',function(e){
-                e.preventDefault();
-                var link = this.href;
-
-                $.get(link,function(res){
-                    $('#todo').html(res);
-                });
-            });
-        });
-    </script> -->
+        
     </body>
 </html>

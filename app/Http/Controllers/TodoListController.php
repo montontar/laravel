@@ -12,9 +12,11 @@ class TodoListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $data=TodoList::all();
+        // $data=TodoList::all();
+        $data=TodoList::latest()->paginate(5);
         return view('todolist.todolist',compact(['data']));
     }
 
@@ -64,7 +66,7 @@ class TodoListController extends Controller
     public function edit($id)
     {
         $data=TodoList::find($id);
-        return view('todolist.edit',compact(['data']));
+        return view('todolist.todolist',compact(['data']));
     }
 
     /**

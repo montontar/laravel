@@ -21,6 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('contact','ContactController')->middleware('auth');
-Route::resource('todolist','TodoListController')->middleware('auth');;
-Route::resource('edit','EditTodoListController')->middleware('auth');;
+Route::resource('todolist','TodoListController')->middleware('auth');
+Route::resource('profile','ProfileController')->middleware('auth');
+Route::resource('friendlist','FriendListController')->middleware('auth');
 
