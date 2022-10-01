@@ -7,6 +7,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <script>
+      function getData() {
+         console.log("ABCD");
+         $.ajaxSetup({
+            headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+         });
+      }
+   </script>
+
    <!-- CSRF Token -->
    <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -34,6 +45,7 @@
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
@@ -81,14 +93,29 @@
             <span class="nav-link-text ms-1">To Do List</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/rtl.html">
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Social</h6>
+          <a class="nav-link " href="{{url('/newfeed')}}">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">New Feed</span>
+          </a>
+          <a class="nav-link " href="{{url('/post/create')}}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Social</span>
+            <span class="nav-link-text ms-1">Create Post</span>
           </a>
+          <a class="nav-link " href="{{url('/post')}}">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">View Post</span>
+          </a>
+          
         </li>
+        
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
@@ -108,14 +135,7 @@
             <span class="nav-link-text ms-1">Friend List</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/sign-up.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-collection text-info text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Sign Up</span>
-          </a>
-        </li>
+       
       </ul>
     </div>
   </aside>
@@ -160,7 +180,8 @@
 
     
 
-  <!--   Core JS Files   -->
+
+    <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>

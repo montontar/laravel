@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-
+use Storage;
 class ProfileController extends Controller
 {
     /**
@@ -21,6 +21,32 @@ class ProfileController extends Controller
     {
         $data=User::all();
         return view('profile.profile',compact(['data']));
+        
+    }
+
+    public function save(Request $request)
+    {
+        $validatedData = $request->validate([
+         'images' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+ 
+        ]);
+        $user = new User;
+        $name = $request->file('images')->getClientOriginalName();
+        $path = 'app/uploads/images';
+        // $path = $request->file('images')->store('app/uploads/images');
+        $img_ext =  strtolower($name->getClientOriginalExtension());
+ 
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->images = $request->images;
+        $user->path = $path;
+       
+        Storage::disk('local')->put($name.'.'.$img_ext, $path);
+
+
+        $user->save();
+ 
     }
 
     /**
@@ -45,7 +71,6 @@ class ProfileController extends Controller
             'name'=>'required',
             'username'=>'required',
             'email'=>'required',
-            'images'=>'required'
         ]);
 
         User::create($request->all());
@@ -60,7 +85,8 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        $data=User::find($id);
+        return response()->json($data);
     }
 
     /**
@@ -88,9 +114,24 @@ class ProfileController extends Controller
             'name'=>'required',
             'username'=>'required',
             'email'=>'required',
-            'images'=>'required'
+            'images' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
-        User::find($id)->update($request->all());
+
+        $name = $request->file('images')->getClientOriginalName();
+        $path = $request->file('images')->store('public');
+        $img_ext =  strtolower($request->file('images')->getClientOriginalExtension());
+        
+        $user =  User::find($id);
+ 
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->images = $request->images;
+        $user->path = $path;
+
+        $user->update();
+        
+        Storage::disk('local')->put($img_ext, $path);
         return redirect('/profile');
     }
 

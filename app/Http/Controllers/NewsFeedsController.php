@@ -2,22 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Todolist;
+use App\User;
+use App\Post;
+use App\PostDetail;
 
-class TodoListController extends Controller
+class NewsFeedsController extends Controller
 {
+    public function __construct()
+    {
+        return $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
-        // $data=TodoList::all();
-        $data=TodoList::latest()->paginate(5);
-        return view('todolist.todolist',compact(['data']));
+        // $posts = Post::all();
+        $posts = Post::latest()->get();
+        return view('post.newfeed',compact(['posts']));
     }
 
     /**
@@ -27,7 +35,7 @@ class TodoListController extends Controller
      */
     public function create()
     {
-        return view('todolist.todolist');
+        //
     }
 
     /**
@@ -38,12 +46,7 @@ class TodoListController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'detail'=>'required'
-        ]);
-
-        TodoList::create($request->all());
-        return redirect('/todolist');
+        //
     }
 
     /**
@@ -54,8 +57,7 @@ class TodoListController extends Controller
      */
     public function show($id)
     {
-        $data=TodoList::find($id);
-        return response()->json($data);
+        //
     }
 
     /**
@@ -66,8 +68,7 @@ class TodoListController extends Controller
      */
     public function edit($id)
     {
-        $data=TodoList::find($id);
-        return view('todolist.edit',compact(['data']));
+        //
     }
 
     /**
@@ -77,22 +78,9 @@ class TodoListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'detail'=>'required',
-            'is_status'=>'required'
-        ]);
-
-        TodoList::find($id)->update($request->all());
-        return redirect('/todolist');
-       
-        if(!$request->has('is_status')){
-            $request->merge(['is_status' => 0]);
-        }
-
+        //
     }
 
     /**
@@ -103,7 +91,7 @@ class TodoListController extends Controller
      */
     public function destroy($id)
     {
-        TodoList::find($id)->delete();
-        return redirect('/todolist');
+        PostDetail::find($id)->delete();
+        return back();
     }
 }

@@ -1,23 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use App\Todolist;
 
-class TodoListController extends Controller
+class FollowController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
-        // $data=TodoList::all();
-        $data=TodoList::latest()->paginate(5);
-        return view('todolist.todolist',compact(['data']));
+        //
     }
 
     /**
@@ -27,7 +22,7 @@ class TodoListController extends Controller
      */
     public function create()
     {
-        return view('todolist.todolist');
+        return view('friendlist.friendlist');
     }
 
     /**
@@ -38,12 +33,7 @@ class TodoListController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'detail'=>'required'
-        ]);
-
-        TodoList::create($request->all());
-        return redirect('/todolist');
+        
     }
 
     /**
@@ -54,8 +44,7 @@ class TodoListController extends Controller
      */
     public function show($id)
     {
-        $data=TodoList::find($id);
-        return response()->json($data);
+        //
     }
 
     /**
@@ -66,8 +55,7 @@ class TodoListController extends Controller
      */
     public function edit($id)
     {
-        $data=TodoList::find($id);
-        return view('todolist.edit',compact(['data']));
+        //
     }
 
     /**
@@ -77,22 +65,9 @@ class TodoListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'detail'=>'required',
-            'is_status'=>'required'
-        ]);
-
-        TodoList::find($id)->update($request->all());
-        return redirect('/todolist');
-       
-        if(!$request->has('is_status')){
-            $request->merge(['is_status' => 0]);
-        }
-
+        //
     }
 
     /**
@@ -103,7 +78,6 @@ class TodoListController extends Controller
      */
     public function destroy($id)
     {
-        TodoList::find($id)->delete();
-        return redirect('/todolist');
+        //
     }
 }

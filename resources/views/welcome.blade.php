@@ -1,4 +1,4 @@
-@extends('layouts.app')
+
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -114,7 +114,6 @@
                     </div>
 
                     <div  class="links">
-                        <!-- <a href="{{url('/contact')}}" class="btn btn-outline-secondary">Data Table</a> -->
                         <a href="{{url('home')}}" class="btn btn-outline-info">Home Pages</a>
 
                     </div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumImages extends Migration
+class AddColumCreatedAt extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumImages extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('images')->after('email');
+        Schema::table('follows', function (Blueprint $table) {
+            $table->timestamp('created_at')->after('follower');
         });
     }
 
@@ -25,6 +25,6 @@ class AddColumImages extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('follows');
     }
 }

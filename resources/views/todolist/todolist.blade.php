@@ -28,12 +28,11 @@
                     @endif
 
                     {!! Form::open(['action' => 'TodoListController@store','method' =>'POST']) !!}
-                    @csrf
                                 <div class="form-group mt-3" align="right">
                                     <input  type="text" name="detail"  class="form-control col-6"  placeholder="กรอกรายละเอียด">
                                 </div>
                                 <div class="form-group" align="right">
-                                <input  type="submit" value="เพิ่ม" class="btn btn-primary col-2 mb-3">
+                                @csrf<input  type="submit" value="เพิ่ม" class="btn btn-primary col-2 mb-3">
                                 </div>
                     {!! Form::close() !!}
 
@@ -56,12 +55,12 @@
                                     <th scope="row">{{($number)}}</th>
                                     <td align="center">{{$row->detail}}</td>
                                     <td align="center">
-                                        @if ($row->is_status == "on")
+                                        @if ($row->is_status == "1")
                                             <p style="background-color:lime; border-radius: 100px; width: 100px;" align="center"> สำเร็จแล้ว </p>
                                         @endif
                                     </td>
                                     <td align="right">
-                                            <input type="submit" value="แก้ไข" class="btn btn-warning btn-detail open_modal"></input>
+                                            <input type="submit" value="แก้ไข"  data-id="{{$row->id}}" class="btn btn-warning btn-detail open_modaltodo_edit"></input>
                                     </td>
                                     <td align="left">
                                         <form action="{{route('todolist.destroy',$row->id)}}" method="post">
@@ -84,33 +83,30 @@
                     </div>
 
                     
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="myModalTodoEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h4 class="font-weight-bolder">แก้ไข</h4>
                                 </div>
 
-                                {!! Form::open(['action' => ['TodoListController@update',$row->id],'method' =>'PUT']) !!}
+                                {!! Form::open(['action' => ['TodoListController@update',$row->id],'method' =>'PUT','id' =>'frmTodolist','name' =>'frmTodolist']) !!}
                                 @csrf
                                 <div class="modal-body">
-                                    <form id="frmProducts" name="frmProducts" class="form-horizontal" novalidate="">
                                         <div class="form-group error">
                                             <div class="col-sm-8">
-                                            {!! Form::text('detail',$row->detail,["class"=>"form-control"])!!}
-                                                <!-- <input type="text" class="form-control has-error" id="detail" name="detail" placeholder="กรอกรายละเอียด" value=""> -->
-                                                <h3 class="ml-2">
+                                                <input type="text" class="form-control " id="detail" name="detail" placeholder="กรอกรายละเอียด" value="{{ $row->detail }}">
+                                                <h3 class="mt-2">
                                                 <input type="hidden"  name="is_status" value="0" >
-                                                <input type="checkbox"  name="is_status" style="width: 1.2rem; height: 1.2rem;"
+                                                <input  type="checkbox"  name="is_status" style="width: 1.3rem; height: 1.3rem;" value="1"
                                                 @if (old('is_status',$row->is_status)) checked @endif />
                                                 สำเร็จ </h3>
                                             </div>
                                         </div>
                                             <div class="modal-footer">
-                                                <input type="submit" class="btn btn-detail btn-success" id="btn-save"></input>
+                                                <input type="submit" class="btn btn-detail btn-success" data-id="{{$row->id}}" id="btn-edit" value="บันทึก"></input>
                                                 <a href="{{url('/todolist')}}" class="btn btn-detail btn-danger"> ยกเลิก </a>
                                             </div>
-                                    </form>
                                 </div>
                                 {!! Form::close() !!}
 

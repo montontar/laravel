@@ -26,7 +26,7 @@ class ContactController extends Controller
      */
     public function create()
     {
-        return view('contact.create');
+        return view('contact.index');
     }
 
     /**
@@ -54,7 +54,8 @@ class ContactController extends Controller
      */
     public function show($id)
     {
-        //
+        $data=Contact::find($id);
+        return response()->json($data);
     }
 
     /**

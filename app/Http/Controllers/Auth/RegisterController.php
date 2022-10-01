@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use Storage;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -53,9 +54,18 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'images' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+
+        $name = request()->file('images')->getClientOriginalName();
+        $path = request()->file('images')->store('public');
+        $img_ext =  strtolower($data->file('images')->getClientOriginalExtension());
+
+        request()->images = request()->images;
+        request()->path = $path;
+
+        Storage::disk('local')->put($img_ext, $path);
+
     }
 
     /**
@@ -66,19 +76,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user =  User::create([
             'name' => $data['name'],
             'username' => $data['username'],
             'email' => $data['email'],
-            'images' => $data['images'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if(request()->hasFile('images')){
+            $name = request()->file('images')->getClientOriginalName();
+            $path = request()->file('images')->store('public');
+            $img_ext =  strtolower(request()->file('images')->getClientOriginalExtension());
+
+            $user->images = request()->images;
+            $user->path = $path;
+
+            Storage::disk('local')->put($img_ext, $path);
+            $user->update(['images' => $user->images]);
+        }
+        return $user;
     }
-
-   
-    
 }
-
-
-	
-

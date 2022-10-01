@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.index')
 @section('content')
     <div class="container" align="center">
     <h2 style="text-align: center;"> เพิ่มข้อมูล </h2>

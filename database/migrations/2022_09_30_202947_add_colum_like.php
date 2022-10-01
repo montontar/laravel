@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostDetailsTable extends Migration
+class AddColumLike extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreatePostDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_details', function (Blueprint $table) {
-            $table->id();
-            $table->string('post_id');
-            $table->string('user_id');
-            $table->string('comment');
-            $table->string('like');
+        Schema::table('posts', function (Blueprint $table) {
+            $table->string('like')->nullable();
+            $table->string('is_status')->nullable();
         });
     }
 
@@ -29,6 +26,6 @@ class CreatePostDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_details');
+        Schema::dropIfExists('posts');
     }
 }

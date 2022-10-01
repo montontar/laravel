@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Follow;
+use Validator;
+
 class FriendListController extends Controller
 {
     /**
@@ -17,8 +22,16 @@ class FriendListController extends Controller
 
     public function index()
     {
-        $data=User::all();
-        return view('friendlist.friendlist',compact(['data']));
+        $data=User::latest()->paginate(5);
+        $follow=Follow::all();
+        // $follow=Follow::where("is_status",1)->get();
+        
+        $val = [
+            "data" => $data,
+            "follow" => $follow,
+        ];
+
+        return view('friendlist.friendlist',compact(['data','follow']));
     }
 
     /**
@@ -28,7 +41,7 @@ class FriendListController extends Controller
      */
     public function create()
     {
-        //
+        return view('friendlist.friendlist');
     }
 
     /**
@@ -39,7 +52,20 @@ class FriendListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'follow'=>'required',
+        ]);
+        
+        $follow = array();
+        $follow["user_id"] =  Auth::user()->id;
+        $follow["user_id_follow"] =  $request->follow;
+        $follow["follower"] =  "1";
+        $follow["is_status"] =  "1";
+
+        //query builder
+        DB::table('follows')->insert($follow);
+                            
+        return redirect()->back()->with('success',"ติดตามเรียบร้อย");
     }
 
     /**
@@ -50,7 +76,8 @@ class FriendListController extends Controller
      */
     public function show($id)
     {
-        //
+        $data=User::find($id);
+        return response()->json($data);
     }
 
     /**
@@ -61,7 +88,7 @@ class FriendListController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -73,7 +100,13 @@ class FriendListController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'following'=>'required',
+        ]);
+
+        //query builder
+        Follow::find($id)->update($request->all());
+        return redirect('/friendlist');
     }
 
     /**
@@ -84,6 +117,7 @@ class FriendListController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Follow::find($id)->delete();
+        return redirect('/friendlist');
     }
 }
