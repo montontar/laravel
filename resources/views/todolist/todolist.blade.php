@@ -97,9 +97,12 @@
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control " id="detail" name="detail" placeholder="กรอกรายละเอียด" value="{{ $row->detail }}">
                                                 <h3 class="mt-2">
-                                                <input type="hidden"  name="is_status" value="0" >
-                                                <input  type="checkbox"  name="is_status" style="width: 1.3rem; height: 1.3rem;" value="1"
-                                                @if (old('is_status',$row->is_status)) checked @endif />
+                                                @if($row->is_status == "")
+                                                @else
+                                                    <input type="hidden"  name="is_status" value="0" >
+                                                    <input  type="checkbox"  name="is_status" style="width: 1.3rem; height: 1.3rem;" value="1"
+                                                    @if (old('is_status',$row->is_status)) checked @endif />
+                                                @endif
                                                 สำเร็จ </h3>
                                             </div>
                                         </div>

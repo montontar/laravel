@@ -28,7 +28,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm ">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel 7') }}
@@ -79,10 +79,18 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4" style="background-color: lightcyan;">
+        
             @yield('content')
+
         </main>
+
+                <div class="card-footer " style="border: none; background-color: none;" align="center">
+                    <h8 class="ms-1 font-weight-bold"> {{ __('© 2022 Monton Tar, Laravel 7 ') }} </h8>
+                </div>
+        
     </div>
+   
     
 </body>
 </html>
