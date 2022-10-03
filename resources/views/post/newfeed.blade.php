@@ -76,10 +76,11 @@
                             @endif
                             <div class="card-body">
                                @if( !$post->images == "")
-                                    <img src="{{ $post->getprofile() }}" class="col-10  img-responsive ml-4" style="display: cover; max-width: 60%; max-height: 40%;">
+                                    <div align="center">
+                                        <img src="{{ $post->getprofile() }}" class="col-10  img-responsive ml-4" style="display: cover; max-width: 60%; max-height: 40%;">
+                                    </div>
                                @endif
-
-                                    <p class="ml-5 mt-2" >{{ $post->body }}</p>
+                                    <p class="ml-5 mt-3" >{{ $post->body }}</p>
 
                             @if( $post->PostsDetails->isEmpty())
                               

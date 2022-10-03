@@ -2,10 +2,10 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @section('content')
 <div class="container">
-<a href="/post" class="btn btn-success my-2 col-2"> กลับ </a>
     <div class="row justify-content-center">
-   
+        
         <div class="col-md-10">
+        <a href="/post" class="btn btn-success  my-2 col-2"> กลับ </a>
             <div class="card">
                 
                 <div class="card-header">โพส</div>

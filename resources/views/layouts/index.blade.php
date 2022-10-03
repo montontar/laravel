@@ -59,7 +59,6 @@
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href="{{url('/')}}">
-        <!-- <img src="{{asset('assets/img/brand/blue.png')}}" class="navbar-brand-img h-100" alt="..."> -->
         <span class="ms-1 font-weight-bold">MENU</span>
       </a>
     </div>
@@ -140,6 +139,7 @@
     </div>
   </aside>
 
+  <main class="main-content position-relative border-radius-lg ">
   <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
       <div class="container-fluid py-1 px-3 col-8">
         <nav aria-label="breadcrumb">
@@ -160,7 +160,7 @@
             
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
-                <div class="sidenav-toggler-inner">
+                <div class="sidenav-toggler-inner" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
                   <i class="sidenav-toggler-line bg-white"></i>
                   <i class="sidenav-toggler-line bg-white"></i>
                   <i class="sidenav-toggler-line bg-white"></i>
@@ -177,7 +177,7 @@
         </div>
       </div>
     </nav>
-
+  </main>
     
 
 
