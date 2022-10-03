@@ -30,10 +30,8 @@
                             <th scope="col">Tel</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
-
                         </tr>
                     </thead>
-
                     <tbody>
                         <?php $number = 1; ?>
                         @foreach($data as $row)
@@ -43,9 +41,11 @@
                             <td>{{$row->email}}</td>
                             <td>{{$row->tel}}</td>
                             <td align="right">
-                                <!-- <a  href="{{route('contact.edit',$row->id)}}"  class="btn btn-warning"> แก้ไข </a> -->
-                                <input type="submit" value="แก้ไข"  data-id="{{$row->id}}"  class="btn btn-warning open_modalcontact_edit"></input>
-                                <!-- <button id="btn_edit_contact" name="btn_edit_contact" data-id="{{$row->id}}"  class="btn btn-warning open_modal_edit">แก้ไข</button> -->
+                                @if( $row->id == "" )
+                                    <input type="submit" value="แก้ไข"  data-id=""  class="btn btn-warning open_modalcontact_edit"></input>
+                                @else
+                                    <input type="submit" value="แก้ไข"  data-id="{{$row->id}}"  class="btn btn-warning open_modalcontact_edit"></input>
+                                @endif
                             </td>
                             <td align="left">
                                 <form action="{{route('contact.destroy',$row->id)}}" method="post">
@@ -56,7 +56,6 @@
                         </tr>
                         <?php $number++; ?>
                         @endforeach
-                        
                     </tbody>
                 </table>
                             <div class="col"></div>
@@ -116,44 +115,45 @@
                             <h4 class="font-weight-bolder">แก้ไขข้อมูล</h4>
                         </div>
 
-                            @if ($errors->all())
-                                    <ul class="alert alert-danger">
-                                        @foreach ($errors->all() as $error)
-                                            <li>
-                                                {{$error}}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                            @endif
-
-                        {!! Form::open(['action' => ['ContactController@update',$row->id],'method' =>'PUT','id' =>'frmContact','name' =>'frmContact']) !!}
-                        @csrf
-                                <div class="modal-body">
-                                    <form id="frmContact" name="frmContact" class="form-horizontal" novalidate="">
-                                        <div class="form-group error">
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <h5>Name</h5>
-                                                    <input type="text" class="form-control" id="name" name="name" placeholder="กรอกรายละเอียด" value="{{ $row->name }}">
+                        @if ($errors->all())
+                            <ul class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    <li>
+                                        {{$error}}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                            
+                        @foreach($data as $row)
+                            {!! Form::open(['action' => ['ContactController@update',$row->id],'method' =>'PUT','id' =>'frmContact','name' =>'frmContact']) !!}
+                                @csrf
+                                        <div class="modal-body">
+                                            <form id="frmContact" name="frmContact" class="form-horizontal" novalidate="">
+                                                <div class="form-group error">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <h5>Name</h5>
+                                                            <input type="text" class="form-control" id="name" name="name" placeholder="กรอกรายละเอียด" value="{{ $row->name }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <h5>EMAIL</h5>
+                                                            <input type="text" class="form-control" id="email" name="email" placeholder="กรอกรายละเอียด" value="{{ $row->email }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <h5>TEL</h5>
+                                                            <input type="text" class="form-control" id="tel" name="tel" placeholder="กรอกรายละเอียด" value="{{ $row->tel }}">
+                                                        </div>
+                                                        <div class="modal-footer" align="right" >
+                                                            <input type="submit" class="btn btn-success"  data-id="{{$row->id}}" id="btn-contact-edit" value="บันทึก"></input>
+                                                            <a href="{{url('/contact')}}" class="btn btn-danger"> ยกเลิก </a>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <h5>EMAIL</h5>
-                                                    <input type="text" class="form-control" id="email" name="email" placeholder="กรอกรายละเอียด" value="{{ $row->email }}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <h5>TEL</h5>
-                                                    <input type="text" class="form-control" id="tel" name="tel" placeholder="กรอกรายละเอียด" value="{{ $row->tel }}">
-                                                </div>
-                                                <div class="modal-footer" align="right" >
-                                                    <input type="submit" class="btn btn-success"  data-id="{{$row->id}}" id="btn-contact-edit" value="บันทึก"></input>
-                                                    <a href="{{url('/contact')}}" class="btn btn-danger"> ยกเลิก </a>
-                                                </div>
-                                            </div>
+                                            </form>
                                         </div>
-                                    </form>
-                                </div>
-                        {!! Form::close() !!}
-
+                            {!! Form::close() !!}
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -170,8 +170,6 @@
                                     bInfo: true,   //แสดงข้อความ แสดง x ถึง x จาก x แถว
                                 );
                             } );
-
-                            
                         </script>
             @endsection
               </div>

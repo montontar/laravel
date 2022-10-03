@@ -4,7 +4,7 @@
     }
 </style>
 
-    
+                    
 
     @foreach($comments as $comment)
         <div class="display-comment ml-5">

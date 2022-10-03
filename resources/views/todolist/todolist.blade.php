@@ -50,27 +50,27 @@
 
                             <tbody>
                                 <?php $number = 1; ?>
-                                @foreach($data as $row)
-                                <tr align="center">
-                                    <th scope="row">{{($number)}}</th>
-                                    <td align="center">{{$row->detail}}</td>
-                                    <td align="center">
-                                        @if ($row->is_status == "1")
-                                            <p style="background-color:lime; border-radius: 100px; width: 100px;" align="center"> สำเร็จแล้ว </p>
-                                        @endif
-                                    </td>
-                                    <td align="right">
-                                            <input type="submit" value="แก้ไข"  data-id="{{$row->id}}" class="btn btn-warning btn-detail open_modaltodo_edit"></input>
-                                    </td>
-                                    <td align="left">
-                                        <form action="{{route('todolist.destroy',$row->id)}}" method="post">
-                                            @csrf @method('DELETE')
-                                            <input type="submit" value="ลบ" data-name="{{$row->detail}}" class="btn btn-danger del"></input>
-                                        </form>
-                                    </td>
-                                </tr>
+                                    @foreach($data as $row)
+                                    <tr align="center">
+                                        <th scope="row">{{($number)}}</th>
+                                        <td align="center">{{$row->detail}}</td>
+                                        <td align="center">
+                                            @if ($row->is_status == "1")
+                                                <p style="background-color:lime; border-radius: 100px; width: 100px;" align="center"> สำเร็จแล้ว </p>
+                                            @endif
+                                        </td>
+                                        <td align="right">
+                                                <input type="submit" value="แก้ไข"  data-id="{{$row->id}}" class="btn btn-warning btn-detail open_modaltodo_edit"></input>
+                                        </td>
+                                        <td align="left">
+                                            <form action="{{route('todolist.destroy',$row->id)}}" method="post">
+                                                @csrf @method('DELETE')
+                                                <input type="submit" value="ลบ" data-name="{{$row->detail}}" class="btn btn-danger del"></input>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 <?php $number++; ?>
-                                @endforeach
+                                    @endforeach
                             </tbody>
                         </table>
 
@@ -90,6 +90,7 @@
                                     <h4 class="font-weight-bolder">แก้ไข</h4>
                                 </div>
 
+                            @foreach($data as $row)
                                 {!! Form::open(['action' => ['TodoListController@update',$row->id],'method' =>'PUT','id' =>'frmTodolist','name' =>'frmTodolist']) !!}
                                 @csrf
                                 <div class="modal-body">
@@ -112,7 +113,7 @@
                                             </div>
                                 </div>
                                 {!! Form::close() !!}
-
+                            @endforeach
                             </div>
                         </div>
                     </div>

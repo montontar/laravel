@@ -56,6 +56,9 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <main class="main-content position-relative border-radius-lg ">
             <div class="container">
+                    @error('comment_body')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 <div class="row justify-content-center">
                     <div class="col-md-12">
 
@@ -109,8 +112,6 @@
                                 @endif
                             @endif
                                 </form> 
-                         
-
                                     <div align="right" class="mr-2"><h7>{{ __('เวลาโพส : ') }}{{ $post->updated_at }}</h7></div>
                                 <hr />
                                     @include('post.partials.comment_replies', ['comments' => $post->comments, 'post_id' => $post->id])
