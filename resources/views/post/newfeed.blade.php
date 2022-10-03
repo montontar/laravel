@@ -91,13 +91,22 @@
                                     </button>
                                 {!! Form::close() !!} 
                             @else
-                                <form method="post" action="{{route('newfeed.destroy',$post->checkPostsDetail($post->id)->id)}}">
-                                @method('delete')
-                                @csrf
-                                    <button class="ml-4 dislike" style="border: none; font-size:25px; width: 40px;" id="dislike" name="dislike" type="submit" data-id="{{ $post->checkPostsDetail($post->id)->id }}" value="0">
-                                        <i  class="fas fa-heart " style="font-size:25px; color: red;"  ></i>
-                                    </button>
-                                </form>
+                                @if($post->checkPostsDetail($post->id) == "")
+                                    {!! Form::open(['action' => ['PostController@update',$post->id],'id' =>'frmposts','name' =>'frmposts','method' =>'PUT', 'enctype' => 'multipart/form-data']) !!}
+                                    {{ csrf_field() }}
+                                        <button class="ml-4" style="border: none; font-size:25px; width: 40px;" id="is_status" name="is_status" type="submit" data-id="{{$post->id}}" value="{{$post->id}}">
+                                            <i  class="fas fa-heart " style="font-size:25px;"  ></i>
+                                        </button>
+                                    {!! Form::close() !!} 
+                                @else
+                                    <form method="post" action="{{route('newfeed.destroy',$post->checkPostsDetail($post->id)->id)}}">
+                                    @method('delete')
+                                    @csrf
+                                        <button class="ml-4 dislike" style="border: none; font-size:25px; width: 40px;" id="dislike" name="dislike" type="submit" data-id="{{ $post->checkPostsDetail($post->id)->id }}" value="0">
+                                            <i  class="fas fa-heart " style="font-size:25px; color: red;"  ></i>
+                                        </button>
+                                    </form>
+                                @endif
                             @endif
                                 </form> 
                          

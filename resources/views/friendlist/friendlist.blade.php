@@ -113,35 +113,41 @@
                                         <td align="center">{{$row->username}}</td>
                                         <td align="center">{{$row->email}}</td>
                                         <td align="center"> 
-                                         
-                                        @if( $row->Follows->isEmpty() )
-
-                                       
-                                            {!! Form::open(['action' => ['FriendListController@store',$row->id],'id' =>'frmfriendlist','name' =>'frmfriendlist','method' =>'POST', 'enctype' => 'multipart/form-data']) !!}
-                                            @csrf
-                                            
-                                                <button type="submit"  class="btn btn-primary followw" id="follow" name="follow" value="{{$row->id}}">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
-                                                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                                                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                                                        </svg>
-                                                    Follow
-                                                </button>
-                                                {!! Form::close() !!}  
-                                        @else   
-                                            <form action="{{route('friendlist.destroy',$row->checkFollow($row->id)->id)}}" method="post">
-                                                @csrf @method('DELETE')
-                                                <button type="submit" class="btn btn-success followwing" data-id=" {{ $row->checkFollow($row->id)->id }}" data-name="{{$row->username}}" id="following" name="following" value="0">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
-                                                            <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z"></path>
-                                                        </svg>
-                                                    Following
-                                                </button> 
-                                            </form>
-                                                
-                                        @endif 
-                                                
-                                         
+                                                @if( $row->Follows->isEmpty() )
+                                                    {!! Form::open(['action' => ['FriendListController@store',$row->id],'id' =>'frmfriendlist','name' =>'frmfriendlist','method' =>'POST', 'enctype' => 'multipart/form-data']) !!}
+                                                    @csrf
+                                                        <button type="submit"  class="btn btn-primary followw" id="follow" name="follow" value="{{$row->id}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                                                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                                                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                                                </svg>
+                                                            Follow
+                                                        </button>
+                                                    {!! Form::close() !!}  
+                                                @else   
+                                                    @if($row->checkFollow($row->id) == "")
+                                                        {!! Form::open(['action' => ['FriendListController@store',$row->id],'id' =>'frmfriendlist','name' =>'frmfriendlist','method' =>'POST', 'enctype' => 'multipart/form-data']) !!}
+                                                        @csrf
+                                                            <button type="submit"  class="btn btn-primary followw" id="follow" name="follow" value="{{$row->id}}">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                                                        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                                                                        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                                                    </svg>
+                                                                Follow
+                                                            </button>
+                                                        {!! Form::close() !!}  
+                                                    @else
+                                                        <form action="{{route('friendlist.destroy',$row->checkFollow($row->id)->id)}}" method="post">
+                                                            @csrf @method('DELETE')
+                                                            <button type="submit" class="btn btn-success followwing" data-id=" {{ $row->checkFollow($row->id)->id }}" data-name="{{$row->username}}" id="following" name="following" value="0">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
+                                                                        <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z"></path>
+                                                                    </svg>
+                                                                Following
+                                                            </button> 
+                                                        </form>
+                                                    @endif
+                                                @endif 
                                         </td>
                                     @endif
                                     <td align="right">
